@@ -62,16 +62,12 @@ DWH_IAM_ROLE_NAME      =
 
 This project includes five script files:
 
-- analytics.py runs a few queries on the created star schema to validate that the project has been completed successfully.
-- create_cluster.py is where the AWS components for this project are created programmatically
+- create_cluster.py is where the AWS SDK, with some boilerplate code.
 - create_table.py is where fact and dimension tables for the star schema in Redshift are created.
 - etl.py is where data gets loaded from S3 into staging tables on Redshift and then processed into the analytics tables on Redshift.
-- sql_queries.py where SQL statements are defined, which are then used by etl.py, create_table.py and analytics.py.
-- README.md is current file.
-- requirements.txt with python dependencies needed to run the project
+- sql_queries.py where SQL statements are defined, which are then used by etl.py, create_table.py and single_query_insert.py an alternative to etl.py file
+- requirements.txt with python dependencies which required to run this project
 
-## Database schema design
-State and justify your database schema design and ETL pipeline.
 
 #### Staging Tables
 - staging_events
@@ -94,22 +90,27 @@ State and justify your database schema design and ETL pipeline.
 
 ## Queries and Results
 
-Number of rows in each table:
+Number of rows in each table, We can verify results from terminal by connecting to cluster with psql tool.
 
-| Table            | rows  |
-|---               | --:   |
-| staging_events   | 8056  |
-| staging_songs    | 14896 |
-| artists          | 10025 |
-| songplays        | 333   |
-| songs            | 14896 |
-| time             |  8023 |
-| users            |  105  |
+```
+psql -h cluster_name.#########.us-west-2.redshift.amazonaws.com -U USERNAME -d DATABASE_NAME -p PORT
+```
+
+| Table            | rows  | 
+|---               | --:   | 
+| staging_events   | 8056  |  
+| staging_songs    | 14896 |  
+| artists          | 10025 |  
+| songplays        | 333   |  
+| songs            | 14896 |  
+| time             |  8023 |  
+| users            |  105  |  
 
 
-### Steps followed on this project
+### Steps to follow
 
 1. Create Table Schemas
+
 - Design schemas for your fact and dimension tables
 - Write a SQL CREATE statement for each of these tables in sql_queries.py
 - Complete the logic in create_tables.py to connect to the database and create these tables
@@ -119,14 +120,8 @@ Number of rows in each table:
 - Test by running create_tables.py and checking the table schemas in your redshift database. You can use Query Editor in the AWS Redshift console for this.
 
 2. Build ETL Pipeline
+
 - Implement the logic in etl.py to load data from S3 to staging tables on Redshift.
-- Implement the logic in etl.py to load data from staging tables to analytics tables on Redshift.
+- Implement the logic in etl.py or single_query_insert to load data from staging tables to analytics tables on Redshift.
 - Test by running etl.py after running create_tables.py and running the analytic queries on your Redshift database to compare your results with the expected results.
 - Delete your redshift cluster when finished.
-
-3. Document Process
-Do the following steps in your README.md file.
-
-- Discuss the purpose of this database in context of the startup, Sparkify, and their analytical goals.
-- State and justify your database schema design and ETL pipeline.
-- [Optional] Provide example queries and results for song play analysis.
