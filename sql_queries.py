@@ -146,21 +146,6 @@ songplay_table_insert = ("""
     AND e.page  =  'NextSong'
 """)
 
-songplay_table_insert = ("""
-    INSERT INTO songplays( start_time, users_id, level, song_id, artist_id, session_id, location, user_agent)
-    SELECT se.ts           AS start_time, 
-           ss.usersId      AS  user_id,
-           se.level        AS  level,
-           ss.song_id      AS  song_id,
-           se.artist_id    AS  artist_id,
-           se.sessionId    AS  session_id,
-           ss.location     AS  location,
-           se.userAgent    AS  user_agent
-    FROM staging_events AS se
-    JOIN staging_songs AS ss ON (se.artist == ss.artist_name AND se.song == ss.title )
-    WHERE se.page = 'NextSong';
-    
-""")
 
 user_table_insert = ("""
     INSERT INTO users(user_id, first_name, last_name, gender, level)

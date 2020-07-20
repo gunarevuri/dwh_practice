@@ -51,8 +51,8 @@ def main():
 	
 	# insert_artists(cur, conn, query= artist_table_insert)
 	# insert_songs(cur, conn, query= song_table_insert)
-	# insert_time(cur, conn, query = time_table_insert)
-	insert_songplay(cur, conn, query = songplay_table_insert)
+	insert_time(cur, conn, query = time_table_insert)
+	# insert_songplay(cur, conn, query = songplay_table_insert)
 
 	conn.close()
 
