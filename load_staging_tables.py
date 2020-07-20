@@ -9,10 +9,6 @@ def load_staging_tables(cur, conn):
 		conn.commit()
 		print("----------finish "+str(query)+" -----------")
 
-
-
-
-
 def main():
 	config = configparser.ConfigParser()
 	config.read('dwh.cfg')
@@ -21,8 +17,6 @@ def main():
 	cur = conn.cursor()
 	
 	load_staging_tables(cur, conn)
-	# insert_tables(cur, conn)
-
 	conn.close()
 
 
