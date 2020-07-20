@@ -1,6 +1,6 @@
 import configparser
 import psycopg2
-from sql_queries import create_table_queries, drop_table_queries, insert_table_queries, select_number_rows_queries
+from sql_queries import create_table_queries, drop_table_queries, insert_table_queries, select_number_rows_queries, create_real_tables
 
 
 def drop_tables(cur, conn):
@@ -20,6 +20,14 @@ def create_tables(cur, conn):
         print("finish--------------------finish")
 
 
+def create_real_tables(cur, conn):
+    for query in create_real_tables:
+        print("query"+str(query))
+        cur.execute(query)
+        conn.commit()
+        print("-----finish "+str(query)+"----")
+
+
 def main():
     config = configparser.ConfigParser()
     config.read('dwh.cfg')
@@ -29,6 +37,7 @@ def main():
 
     drop_tables(cur, conn)
     create_tables(cur, conn)
+    # create_real_tables(cur, conn)
 
     conn.close()
 
